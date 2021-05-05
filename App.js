@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
@@ -15,7 +15,30 @@ export default class App extends React.Component {
 const TabNavigator = createBottomTabNavigator({
   Main: { screen: MainScreen },
   Scan: { screen: ScanScreen }
-});
+},
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: () => {
+        const { routeName } = navigation.state;
+        if (routeName === 'Main') {
+          return(
+            <Image
+            style={{width: 20, height: 20}}
+            source={require('./assets/icon.png')}
+            />
+          )
+        } else if (routeName === 'Scan') {
+          return(
+            <Image
+            style={{ width: 20, height: 20 }}
+            source={require('./assets/scanner.png')}
+            />
+          )
+        }
+      }
+    }),
+  }
+)
 
 const AppContainer = createAppContainer(TabNavigator);
 
